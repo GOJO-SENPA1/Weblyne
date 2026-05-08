@@ -114,14 +114,27 @@ export default function Services() {
             <p className="wb-section__lead">We use battle-tested technology so your site stays fast and easy to maintain for years.</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 16 }}>
-            {['React', 'Next.js', 'Node.js', 'TypeScript', 'WordPress', 'Astro', 'Tailwind', 'Figma', 'Vercel', 'Supabase', 'Stripe', 'GitHub'].map(t => (
-              <div key={t} style={{
+            {[
+              { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+              { name: 'Next.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
+              { name: 'Node.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+              { name: 'TypeScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+              { name: 'WordPress', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg' },
+              { name: 'Astro', logo: 'https://cdn.simpleicons.org/astro/FF5D01' },
+              { name: 'Tailwind', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
+              { name: 'Figma', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+              { name: 'Vercel', logo: 'https://cdn.simpleicons.org/vercel/000000' },
+              { name: 'Supabase', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg' },
+              { name: 'Stripe', logo: 'https://cdn.simpleicons.org/stripe/635BFF' },
+              { name: 'GitHub', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
+            ].map(t => (
+              <div key={t.name} style={{
                 aspectRatio: '1', border: '1px solid var(--color-line)', borderRadius: 14,
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8,
                 background: 'white',
               }}>
-                <div style={{ width: 36, height: 36, borderRadius: 8, background: 'var(--color-blue-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-blue)', fontFamily: 'var(--font-display)', fontWeight: 800 }}>{t[0]}</div>
-                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-ink)' }}>{t}</div>
+                <img src={t.logo} alt={t.name} width={40} height={40} style={{ display: 'block' }} />
+                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-ink)' }}>{t.name}</div>
               </div>
             ))}
           </div>
