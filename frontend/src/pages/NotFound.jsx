@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import Icon from '../components/Icon.jsx';
+import { useSeo } from '../lib/seo.js';
 
 export default function NotFound() {
+  useSeo({ title: 'Page not found', description: '404 — the page you were looking for has moved or never existed.', noindex: true });
   return (
     <section className="wb-section" style={{ minHeight: '70vh', display: 'flex', alignItems: 'center' }}>
       <div className="wb-container" style={{ textAlign: 'center' }}>

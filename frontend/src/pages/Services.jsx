@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Icon from '../components/Icon.jsx';
 import CtaBanner from '../components/CtaBanner.jsx';
+import { useSeo } from '../lib/seo.js';
 
 const SERVICES = [
   { icon: 'globe', name: 'Website Development', from: 'Rs 15,000', desc: 'Fast, responsive marketing sites that convert visitors into customers. Built on modern stacks (Next.js, Astro, or WordPress) with content you can update yourself.', includes: ['Up to 12 pages', 'Mobile-first responsive design', 'CMS so you can edit', 'On-page SEO setup', 'Contact + WhatsApp integration', 'SSL & domain configuration'] },
@@ -13,6 +14,11 @@ const SERVICES = [
 ];
 
 export default function Services() {
+  useSeo({
+    title: 'Web Design, Web Apps & SEO Services in Nepal',
+    description: 'Website development, web apps, SEO, social media setup, deployment and maintenance — all priced for Nepali businesses, built to global standards.',
+    path: '/services',
+  });
   return (
     <>
       <header className="wb-pagehead">

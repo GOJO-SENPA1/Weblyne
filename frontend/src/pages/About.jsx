@@ -2,6 +2,7 @@ import Icon from '../components/Icon.jsx';
 import CtaBanner from '../components/CtaBanner.jsx';
 import anshAvatar from '../assets/ansh-avatar.jpg';
 import adityaAvatar from '../assets/aditya-avatar.jpg';
+import { useSeo } from '../lib/seo.js';
 
 const VALUES = [
   { n: '01', t: 'Transparency', d: 'You see every line item. We share progress weekly. No mysterious "consulting fees" or vague timelines.', icon: 'shield' },
@@ -17,6 +18,11 @@ const MILESTONES = [
 ];
 
 export default function About() {
+  useSeo({
+    title: 'About Weblyne — A studio rooted in Biratnagar',
+    description: 'Weblyne is an online-first web studio founded in Biratnagar by Aditya Bhujel. Our values, story, and milestones — honestly told.',
+    path: '/about',
+  });
   return (
     <>
       <header className="wb-pagehead">

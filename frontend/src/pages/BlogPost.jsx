@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import Icon from '../components/Icon.jsx';
 import { api } from '../lib/api.js';
 import { BlogPostSkeleton } from '../components/Skeleton.jsx';
+import { useSeo, SITE_URL } from '../lib/seo.js';
 
 function formatDate(d) {
   if (!d) return '';
@@ -49,6 +50,30 @@ export default function BlogPost() {
   useEffect(() => {
     api.blogOne(slug).then(setPost).catch(setError);
   }, [slug]);
+
+  useSeo({
+    title: post?.title,
+    description: post?.excerpt,
+    path: `/blog/${slug}`,
+    image: post?.image_url,
+    jsonLd: post ? {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: post.title,
+      description: post.excerpt,
+      image: post.image_url || `${SITE_URL}/og-image.png`,
+      author: { '@type': 'Person', name: post.author || 'Aditya Bhujel' },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Weblyne',
+        logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon.svg` },
+      },
+      datePublished: post.published_at || post.created_at,
+      dateModified: post.updated_at || post.published_at || post.created_at,
+      mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/blog/${slug}` },
+    } : null,
+    jsonLdId: 'blogposting-jsonld',
+  });
 
   useEffect(() => {
     const handler = () => {

@@ -4,6 +4,7 @@ import Icon from '../components/Icon.jsx';
 import CtaBanner from '../components/CtaBanner.jsx';
 import { api } from '../lib/api.js';
 import { BlogCardSkeleton, BlogFeaturedSkeleton } from '../components/Skeleton.jsx';
+import { useSeo } from '../lib/seo.js';
 
 const COLOR_BY_CAT = {
   Strategy: 'var(--color-blue)',
@@ -23,6 +24,11 @@ function formatDate(d) {
 }
 
 export default function Blog() {
+  useSeo({
+    title: 'Blog — Field notes from the studio',
+    description: 'Practical writing on building for the web — local Nepal context, honest case studies, and tools we actually use.',
+    path: '/blog',
+  });
   const [filter, setFilter] = useState('All');
   const [posts, setPosts] = useState(null);
 

@@ -4,11 +4,17 @@ import Icon from '../components/Icon.jsx';
 import CtaBanner from '../components/CtaBanner.jsx';
 import { api } from '../lib/api.js';
 import { PortfolioCardSkeleton } from '../components/Skeleton.jsx';
+import { useSeo } from '../lib/seo.js';
 
 const TABS = ['All', 'website', 'webapp', 'ecommerce', 'seo'];
 const TAB_LABEL = { All: 'All', website: 'Websites', webapp: 'Web Apps', ecommerce: 'E-commerce', seo: 'SEO' };
 
 export default function Portfolio() {
+  useSeo({
+    title: 'Portfolio — Selected work',
+    description: 'Real projects we ship for real clients in Nepal. Websites, web apps and case studies from Weblyne.',
+    path: '/portfolio',
+  });
   const [tab, setTab] = useState('All');
   const [projects, setProjects] = useState(null);
 

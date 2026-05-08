@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Icon from '../components/Icon.jsx';
 import { Faq } from './Home.jsx';
+import { useSeo } from '../lib/seo.js';
 
 const TIERS = [
   { name: 'Starter', price: 'Rs 15,000', desc: 'Perfect for new businesses getting online for the first time.', items: ['Up to 5 pages', 'Mobile-responsive design', 'Contact form & WhatsApp', 'Basic SEO setup', 'SSL & free domain (1 yr)', 'WhatsApp support (30 days)'], notIncluded: ['Custom CMS', 'E-commerce', 'Multi-language'] },
@@ -30,6 +31,11 @@ const COMPARISON = [
 ];
 
 export default function Pricing() {
+  useSeo({
+    title: 'Pricing — Transparent rates for websites & web apps',
+    description: 'Honest pricing for websites and web apps in Nepal. Starter from Rs 15,000, Business from Rs 35,000, Enterprise custom. No hidden fees.',
+    path: '/pricing',
+  });
   return (
     <>
       <header className="wb-pagehead">

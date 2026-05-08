@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Icon from '../components/Icon.jsx';
 import CtaBanner from '../components/CtaBanner.jsx';
 import { MockClinic, MockSchool, MockRestaurant } from '../components/Mockups.jsx';
+import { useSeo } from '../lib/seo.js';
 
 function Hero() {
   const words = ['Businesses', 'Clinics', 'Schools', 'Restaurants', 'Startups'];
@@ -386,6 +387,11 @@ export function Faq() {
 }
 
 export default function Home() {
+  useSeo({
+    title: 'Web Design & Development Studio in Biratnagar',
+    description: 'Modern websites, web apps and SEO for Nepali businesses. Crafted locally in Biratnagar, built to global standards. Open for our first clients.',
+    path: '/',
+  });
   return (
     <>
       <Hero />

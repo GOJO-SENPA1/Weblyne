@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import Icon from '../components/Icon.jsx';
 import CtaBanner from '../components/CtaBanner.jsx';
 import { api } from '../lib/api.js';
+import { useSeo } from '../lib/seo.js';
 
 export default function CaseStudy() {
   const { id } = useParams();
@@ -12,6 +13,13 @@ export default function CaseStudy() {
   useEffect(() => {
     api.portfolioOne(id).then(setProject).catch(setError);
   }, [id]);
+
+  useSeo({
+    title: project?.title ? `${project.title} — Case study` : 'Case study',
+    description: project?.description,
+    path: `/portfolio/${id}`,
+    image: project?.image_url,
+  });
 
   if (error) return (
     <section className="wb-section">

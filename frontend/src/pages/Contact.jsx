@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import Icon from '../components/Icon.jsx';
 import { api } from '../lib/api.js';
+import { useSeo } from '../lib/seo.js';
 
 const SERVICES = ['Website Development', 'Web App', 'SEO & Local Search', 'Maintenance & Support', 'Social Media Setup', 'Other / Not sure'];
 const BUDGETS = ['Rs 10K – 30K', 'Rs 30K – 80K', 'Rs 80K+', 'Not sure yet'];
 
 export default function Contact() {
+  useSeo({
+    title: 'Contact Weblyne — Start a project',
+    description: 'Tell us about your project. We reply to every enquiry within 24 hours. WhatsApp +977 9815 864 822 or email adityabhujel999@gmail.com.',
+    path: '/contact',
+  });
   const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', budget: '', desc: '', website: '' });
   const [status, setStatus] = useState('idle'); // idle | sending | done | error
   const [errorMsg, setErrorMsg] = useState('');
