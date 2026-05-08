@@ -1,6 +1,7 @@
 import Icon from '../components/Icon.jsx';
 import CtaBanner from '../components/CtaBanner.jsx';
 import anshAvatar from '../assets/ansh-avatar.jpg';
+import adityaAvatar from '../assets/aditya-avatar.jpg';
 
 const VALUES = [
   { n: '01', t: 'Transparency', d: 'You see every line item. We share progress weekly. No mysterious "consulting fees" or vague timelines.', icon: 'shield' },
@@ -66,10 +67,10 @@ export default function About() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
             <div className="wb-card wb-stack-md" style={{ padding: 0, overflow: 'hidden', display: 'grid', gridTemplateColumns: '320px 1fr' }}>
-              <div style={{ background: 'linear-gradient(135deg, var(--color-blue), var(--color-navy))', position: 'relative', overflow: 'hidden', minHeight: 280 }}>
-                <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2), transparent 60%)' }} />
-                <div style={{ position: 'absolute', bottom: 24, left: 24, fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 96, color: 'rgba(255,255,255,0.95)', lineHeight: 1, letterSpacing: '-0.06em' }}>AB</div>
-                <div style={{ position: 'absolute', top: 24, right: 24, color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-mono)', fontSize: 11 }}>FOUNDER</div>
+              <div style={{ position: 'relative', overflow: 'hidden', minHeight: 280 }}>
+                <img src={adityaAvatar} alt="Aditya Bhujel" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(4,44,83,0.65) 0%, transparent 55%)' }} />
+                <div style={{ position: 'absolute', top: 24, right: 24, color: 'rgba(255,255,255,0.85)', fontFamily: 'var(--font-mono)', fontSize: 11 }}>FOUNDER</div>
               </div>
               <div style={{ padding: 40, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 style={{ fontSize: 28, marginBottom: 6 }}>Aditya Bhujel</h3>
