@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Icon from '../components/Icon.jsx';
 import { api } from '../lib/api.js';
+import { BlogPostSkeleton } from '../components/Skeleton.jsx';
 
 function formatDate(d) {
   if (!d) return '';
@@ -68,7 +69,7 @@ export default function BlogPost() {
       </div>
     </section>
   );
-  if (!post) return <div className="wb-container" style={{ padding: 96, textAlign: 'center', color: 'var(--color-text-muted)' }}>Loading…</div>;
+  if (!post) return <BlogPostSkeleton />;
 
   return (
     <>

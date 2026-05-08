@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Icon from '../components/Icon.jsx';
 import CtaBanner from '../components/CtaBanner.jsx';
 import { api } from '../lib/api.js';
+import { PortfolioCardSkeleton } from '../components/Skeleton.jsx';
 
 const TABS = ['All', 'website', 'webapp', 'ecommerce', 'seo'];
 const TAB_LABEL = { All: 'All', website: 'Websites', webapp: 'Web Apps', ecommerce: 'E-commerce', seo: 'SEO' };
@@ -46,14 +47,18 @@ export default function Portfolio() {
             ))}
           </div>
 
-          {!projects && <div style={{ padding: 40, textAlign: 'center', color: 'var(--color-text-muted)' }}>Loading…</div>}
+          {!projects && (
+            <div className="wb-grid wb-grid--cols-3" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
+              {[0, 1, 2, 3, 4, 5].map(i => <PortfolioCardSkeleton key={i} />)}
+            </div>
+          )}
 
           {isEmpty && <EmptyState />}
 
           {projects && projects.length > 0 && (
-            <div className="wb-grid wb-grid--cols-3" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
-              {projects.map(p => (
-                <Link key={p.id} to={`/portfolio/${p.id}`} className="wb-card wb-card--lift" style={{ padding: 0, overflow: 'hidden', display: 'block' }}>
+            <div className="wb-grid wb-grid--cols-3 wb-stagger" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
+              {projects.map((p, i) => (
+                <Link key={p.id} to={`/portfolio/${p.id}`} className="wb-card wb-card--lift" style={{ padding: 0, overflow: 'hidden', display: 'block', '--i': i }}>
                   <div style={{ aspectRatio: '4 / 3', background: 'var(--color-bg-soft)', overflow: 'hidden', position: 'relative' }}>
                     {p.image_url
                       ? <img src={p.image_url} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />

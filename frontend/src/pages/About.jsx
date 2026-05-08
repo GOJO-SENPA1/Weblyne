@@ -8,10 +8,10 @@ const VALUES = [
 ];
 
 const MILESTONES = [
-  { date: 'Late 2025', t: 'The idea', d: 'Bibek finishes a five-year stretch building products for teams in Kathmandu, Singapore and Berlin. Notices that nothing in Biratnagar feels built by people who actually live here.' },
-  { date: 'Early 2026', t: 'Weblyne registered', d: 'A small office above Pasal Stationery on Main Road. Two laptops, one whiteboard, one rule: be honest about what we are.' },
-  { date: 'Today', t: 'Open for our first clients', d: "No fake portfolio, no inflated numbers. We're booking our first five projects — and giving them the time and care of a studio twice our size." },
-  { date: 'Soon', t: 'Your project here', d: 'Whatever we ship next belongs in this timeline. With your name on it. Want it to be you?' },
+  { date: 'Late 2025', t: 'The idea', d: 'Aditya decides Biratnagar needs a studio that builds for the local context — modern, fast, and honest about being new.' },
+  { date: 'Early 2026', t: 'Brand & stack', d: 'Weblyne gets its name, logo and tech foundation — designed and built solo, end to end.' },
+  { date: 'May 2026', t: 'Open for our first clients', d: 'Site is live. No fake portfolio, no inflated numbers — booking our first projects with founder-led care.' },
+  { date: 'Someday', t: 'A real office', d: "We're online-first today. When the work justifies it, a Biratnagar studio space is on the list." },
 ];
 
 export default function About() {
@@ -21,7 +21,7 @@ export default function About() {
         <div className="wb-container wb-pagehead__inner">
           <span className="wb-eyebrow">Our story</span>
           <h1 style={{ marginTop: 14 }}>A studio rooted<br />in Biratnagar.</h1>
-          <p>Weblyne started in a small office above a stationery shop on Main Road, and we still build for the businesses that walk past our window.</p>
+          <p>Weblyne is an online-first web studio based in Biratnagar — building modern websites and apps for Nepali businesses, with founder-led care on every project.</p>
         </div>
       </header>
 
@@ -74,7 +74,7 @@ export default function About() {
               <div style={{ color: 'var(--color-blue)', fontWeight: 600, marginBottom: 4 }}>Founder &amp; Lead Developer</div>
               <div style={{ color: 'var(--color-text-muted)', fontSize: 14, marginBottom: 24, fontFamily: 'var(--font-mono)' }}>Biratnagar, Nepal</div>
               <p style={{ color: 'var(--color-text)', fontSize: 15, lineHeight: 1.6, marginBottom: 24, maxWidth: 540 }}>
-                Self-taught developer turned full-stack engineer. Five years building products at startups in Kathmandu and remotely for teams in Singapore and Berlin. Came back home to build for Biratnagar.
+                Self-taught developer building Weblyne from Biratnagar. Early in the journey, deeply into modern web tech — and serious about doing right by every client we take on.
               </p>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 24 }}>
                 {['React', 'Next.js', 'TypeScript', 'Node.js', 'Postgres', 'Figma', 'SEO'].map(s => (
@@ -109,9 +109,9 @@ export default function About() {
               <h2 style={{ marginTop: 12 }}>Three values, no compromise.</h2>
             </div>
           </div>
-          <div className="wb-grid wb-grid--cols-3" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
-            {VALUES.map(v => (
-              <div key={v.n} style={{ padding: 32, border: '1px solid var(--color-line)', borderRadius: 16, position: 'relative' }}>
+          <div className="wb-grid wb-grid--cols-3 wb-stagger" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+            {VALUES.map((v, i) => (
+              <div key={v.n} style={{ padding: 32, border: '1px solid var(--color-line)', borderRadius: 16, position: 'relative', '--i': i }}>
                 <div style={{ width: 48, height: 48, borderRadius: 12, background: 'var(--color-blue-light)', color: 'var(--color-blue)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}>
                   <Icon name={v.icon} size={22} />
                 </div>
@@ -132,10 +132,10 @@ export default function About() {
               <h2 style={{ marginTop: 12 }}>Year one, in moments.</h2>
             </div>
           </div>
-          <div style={{ position: 'relative', maxWidth: 800, margin: '0 auto', paddingLeft: 48 }}>
+          <div className="wb-stagger" style={{ position: 'relative', maxWidth: 800, margin: '0 auto', paddingLeft: 48 }}>
             <div style={{ position: 'absolute', left: 12, top: 8, bottom: 8, width: 2, background: 'var(--color-line-strong)' }} />
             {MILESTONES.map((m, i) => (
-              <div key={i} style={{ position: 'relative', paddingBottom: 32 }}>
+              <div key={i} style={{ position: 'relative', paddingBottom: 32, '--i': i }}>
                 <div style={{ position: 'absolute', left: -42, top: 4, width: 24, height: 24, borderRadius: 999, background: 'white', border: '2px solid var(--color-blue)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <div style={{ width: 8, height: 8, borderRadius: 999, background: 'var(--color-blue)' }} />
                 </div>

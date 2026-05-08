@@ -131,7 +131,7 @@ export default function Contact() {
                   {[
                     { icon: 'mail', label: 'Email', val: 'adityabhujel999@gmail.com' },
                     { icon: 'phone', label: 'Phone', val: '+977 9815 864 822' },
-                    { icon: 'map', label: 'Office', val: 'Biratnagar, Nepal' },
+                    { icon: 'map', label: 'Based in', val: 'Online · Biratnagar, Nepal' },
                   ].map(c => (
                     <div key={c.label} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                       <div style={{ width: 38, height: 38, borderRadius: 10, background: 'var(--color-blue-light)', color: 'var(--color-blue)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -160,34 +160,6 @@ export default function Contact() {
             </div>
           </div>
 
-          <div style={{ marginTop: 64, height: 360, borderRadius: 16, overflow: 'hidden', position: 'relative', border: '1px solid var(--color-line)' }}>
-            <div style={{
-              position: 'absolute', inset: 0, background: '#e8eef5',
-              backgroundImage: `
-                linear-gradient(0deg, rgba(24,95,165,0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(24,95,165,0.05) 1px, transparent 1px),
-                radial-gradient(circle at 30% 50%, rgba(29,158,117,0.15), transparent 30%),
-                radial-gradient(circle at 70% 60%, rgba(24,95,165,0.1), transparent 40%)
-              `,
-              backgroundSize: '40px 40px, 40px 40px, 100% 100%, 100% 100%',
-            }} />
-            <svg style={{ position: 'absolute', inset: 0 }} width="100%" height="100%" viewBox="0 0 800 360" preserveAspectRatio="none">
-              <path d="M0 180 Q200 150 400 180 T800 200" stroke="white" strokeWidth="4" fill="none" />
-              <path d="M400 0 L420 360" stroke="white" strokeWidth="3" fill="none" />
-              <path d="M0 80 L800 100" stroke="white" strokeWidth="2" fill="none" opacity="0.6" />
-              <path d="M0 280 L800 260" stroke="white" strokeWidth="2" fill="none" opacity="0.6" />
-            </svg>
-            <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -100%)' }}>
-              <div style={{ background: 'var(--color-blue)', color: 'white', padding: '12px 16px', borderRadius: 12, boxShadow: 'var(--shadow-lg)', fontWeight: 600, fontSize: 14, display: 'flex', alignItems: 'center', gap: 8, whiteSpace: 'nowrap' }}>
-                <Icon name="dot" size={8} /> Weblyne · Main Road
-              </div>
-              <div style={{ width: 0, height: 0, borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderTop: '8px solid var(--color-blue)', margin: '0 auto' }} />
-              <div style={{ width: 12, height: 12, borderRadius: 999, background: 'var(--color-blue)', margin: '4px auto 0', boxShadow: '0 0 0 6px rgba(24,95,165,0.2)' }} />
-            </div>
-            <div style={{ position: 'absolute', bottom: 16, right: 16, background: 'white', padding: '8px 12px', borderRadius: 8, fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-text-muted)' }}>
-              26.4525° N, 87.2718° E
-            </div>
-          </div>
         </div>
       </section>
     </>

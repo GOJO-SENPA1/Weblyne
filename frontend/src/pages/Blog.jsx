@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Icon from '../components/Icon.jsx';
 import CtaBanner from '../components/CtaBanner.jsx';
 import { api } from '../lib/api.js';
+import { BlogCardSkeleton, BlogFeaturedSkeleton } from '../components/Skeleton.jsx';
 
 const COLOR_BY_CAT = {
   Strategy: 'var(--color-blue)',
@@ -50,7 +51,14 @@ export default function Blog() {
 
       <section className="wb-section" style={{ paddingTop: 48 }}>
         <div className="wb-container">
-          {!posts && <div style={{ padding: 40, textAlign: 'center', color: 'var(--color-text-muted)' }}>Loading…</div>}
+          {!posts && (
+            <>
+              <BlogFeaturedSkeleton />
+              <div className="wb-grid wb-grid--cols-3" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
+                {[0, 1, 2].map(i => <BlogCardSkeleton key={i} />)}
+              </div>
+            </>
+          )}
 
           {posts && posts.length === 0 && (
             <div style={{ padding: '64px 32px', textAlign: 'center', border: '1.5px dashed var(--color-line-strong)', borderRadius: 24, background: 'var(--color-blue-tint)' }}>
@@ -96,11 +104,11 @@ export default function Blog() {
           )}
 
           {rest.length > 0 && (
-            <div className="wb-grid wb-grid--cols-3" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
-              {rest.map(p => {
+            <div className="wb-grid wb-grid--cols-3 wb-stagger" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
+              {rest.map((p, i) => {
                 const color = COLOR_BY_CAT[p.category] || 'var(--color-blue)';
                 return (
-                  <Link key={p.id} to={`/blog/${p.slug}`} className="wb-card wb-card--lift" style={{ padding: 0, overflow: 'hidden', display: 'block' }}>
+                  <Link key={p.id} to={`/blog/${p.slug}`} className="wb-card wb-card--lift" style={{ padding: 0, overflow: 'hidden', display: 'block', '--i': i }}>
                     <div style={{ aspectRatio: '16 / 10', background: color, position: 'relative', overflow: 'hidden' }}>
                       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 70%, rgba(255,255,255,0.15), transparent 60%)' }} />
                       {p.image_url && <img src={p.image_url} alt={p.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />}
