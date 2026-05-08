@@ -63,38 +63,75 @@ export default function About() {
               <h2 style={{ marginTop: 12 }}>The team behind Weblyne.</h2>
             </div>
           </div>
-          <div className="wb-card wb-stack-md" style={{ padding: 0, overflow: 'hidden', display: 'grid', gridTemplateColumns: '320px 1fr' }}>
-            <div style={{ background: 'linear-gradient(135deg, var(--color-blue), var(--color-navy))', position: 'relative', overflow: 'hidden', minHeight: 280 }}>
-              <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2), transparent 60%)' }} />
-              <div style={{ position: 'absolute', bottom: 24, left: 24, fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 96, color: 'rgba(255,255,255,0.95)', lineHeight: 1, letterSpacing: '-0.06em' }}>AB</div>
-              <div style={{ position: 'absolute', top: 24, right: 24, color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-mono)', fontSize: 11 }}>FOUNDER</div>
-            </div>
-            <div style={{ padding: 40, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h3 style={{ fontSize: 28, marginBottom: 6 }}>Aditya Bhujel</h3>
-              <div style={{ color: 'var(--color-blue)', fontWeight: 600, marginBottom: 4 }}>Founder &amp; Lead Developer</div>
-              <div style={{ color: 'var(--color-text-muted)', fontSize: 14, marginBottom: 24, fontFamily: 'var(--font-mono)' }}>Biratnagar, Nepal</div>
-              <p style={{ color: 'var(--color-text)', fontSize: 15, lineHeight: 1.6, marginBottom: 24, maxWidth: 540 }}>
-                Self-taught developer building Weblyne from Biratnagar. Early in the journey, deeply into modern web tech — and serious about doing right by every client we take on.
-              </p>
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 24 }}>
-                {['React', 'Next.js', 'TypeScript', 'Node.js', 'Postgres', 'Figma', 'SEO'].map(s => (
-                  <span key={s} className="wb-chip" style={{ fontSize: 12 }}>{s}</span>
-                ))}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            <div className="wb-card wb-stack-md" style={{ padding: 0, overflow: 'hidden', display: 'grid', gridTemplateColumns: '320px 1fr' }}>
+              <div style={{ background: 'linear-gradient(135deg, var(--color-blue), var(--color-navy))', position: 'relative', overflow: 'hidden', minHeight: 280 }}>
+                <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2), transparent 60%)' }} />
+                <div style={{ position: 'absolute', bottom: 24, left: 24, fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 96, color: 'rgba(255,255,255,0.95)', lineHeight: 1, letterSpacing: '-0.06em' }}>AB</div>
+                <div style={{ position: 'absolute', top: 24, right: 24, color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-mono)', fontSize: 11 }}>FOUNDER</div>
               </div>
-              <div style={{ display: 'flex', gap: 10 }}>
-                {[
-                  { name: 'linkedin', href: 'https://www.linkedin.com/in/aditya-bhujel-8755942b2/', label: 'LinkedIn' },
-                  { name: 'github', href: 'https://github.com/Shadow-ops-alt', label: 'GitHub' },
-                  { name: 'twitter', href: 'https://x.com/HWFH13', label: 'X (Twitter)' },
-                  { name: 'mail', href: 'mailto:adityabhujel999@gmail.com', label: 'Email' },
-                ].map(s => (
-                  <a key={s.name} href={s.href} target={s.name === 'mail' ? undefined : '_blank'} rel="noreferrer" aria-label={s.label} style={{
-                    width: 38, height: 38, borderRadius: 10,
-                    border: '1px solid var(--color-line)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: 'var(--color-text-muted)',
-                  }}><Icon name={s.name} size={16} /></a>
-                ))}
+              <div style={{ padding: 40, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <h3 style={{ fontSize: 28, marginBottom: 6 }}>Aditya Bhujel</h3>
+                <div style={{ color: 'var(--color-blue)', fontWeight: 600, marginBottom: 4 }}>Founder &amp; Lead Developer</div>
+                <div style={{ color: 'var(--color-text-muted)', fontSize: 14, marginBottom: 24, fontFamily: 'var(--font-mono)' }}>Biratnagar, Nepal</div>
+                <p style={{ color: 'var(--color-text)', fontSize: 15, lineHeight: 1.6, marginBottom: 24, maxWidth: 540 }}>
+                  Self-taught developer building Weblyne from Biratnagar. Early in the journey, deeply into modern web tech — and serious about doing right by every client we take on.
+                </p>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 24 }}>
+                  {['React', 'Next.js', 'TypeScript', 'Node.js', 'Postgres', 'Figma', 'SEO'].map(s => (
+                    <span key={s} className="wb-chip" style={{ fontSize: 12 }}>{s}</span>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', gap: 10 }}>
+                  {[
+                    { name: 'linkedin', href: 'https://www.linkedin.com/in/aditya-bhujel-8755942b2/', label: 'LinkedIn' },
+                    { name: 'github', href: 'https://github.com/Shadow-ops-alt', label: 'GitHub' },
+                    { name: 'twitter', href: 'https://x.com/HWFH13', label: 'X (Twitter)' },
+                    { name: 'mail', href: 'mailto:adityabhujel999@gmail.com', label: 'Email' },
+                  ].map(s => (
+                    <a key={s.name} href={s.href} target={s.name === 'mail' ? undefined : '_blank'} rel="noreferrer" aria-label={s.label} style={{
+                      width: 38, height: 38, borderRadius: 10,
+                      border: '1px solid var(--color-line)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: 'var(--color-text-muted)',
+                    }}><Icon name={s.name} size={16} /></a>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="wb-card wb-stack-md" style={{ padding: 0, overflow: 'hidden', display: 'grid', gridTemplateColumns: '320px 1fr' }}>
+              <div style={{ background: 'linear-gradient(135deg, var(--color-blue), var(--color-navy))', position: 'relative', overflow: 'hidden', minHeight: 280 }}>
+                <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2), transparent 60%)' }} />
+                <div style={{ position: 'absolute', bottom: 24, left: 24, fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 96, color: 'rgba(255,255,255,0.95)', lineHeight: 1, letterSpacing: '-0.06em' }}>AB</div>
+                <div style={{ position: 'absolute', top: 24, right: 24, color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-mono)', fontSize: 11 }}>CO-FOUNDER</div>
+              </div>
+              <div style={{ padding: 40, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <h3 style={{ fontSize: 28, marginBottom: 6 }}>Ansh Bohara</h3>
+                <div style={{ color: 'var(--color-blue)', fontWeight: 600, marginBottom: 4 }}>Co-Founder &amp; Side Developer</div>
+                <div style={{ color: 'var(--color-text-muted)', fontSize: 14, marginBottom: 24, fontFamily: 'var(--font-mono)' }}>Biratnagar, Nepal</div>
+                <p style={{ color: 'var(--color-text)', fontSize: 15, lineHeight: 1.6, marginBottom: 24, maxWidth: 540 }}>
+                  Self-taught cybersecurity enthusiast and co-builder of Weblyne, based in Biratnagar. Passionate about breaking things apart to understand how they work — from web vulnerabilities to AI systems. Deeply into modern web tech, prompt engineering, and security research, while helping build something clients can actually trust.
+                </p>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 24 }}>
+                  {['Prompt Engineering', 'Burp Suite', 'Python', 'GitHub', 'React'].map(s => (
+                    <span key={s} className="wb-chip" style={{ fontSize: 12 }}>{s}</span>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', gap: 10 }}>
+                  {[
+                    { name: 'linkedin', href: 'https://www.linkedin.com/in/ansh-bohara-47169a344', label: 'LinkedIn' },
+                    { name: 'github', href: 'https://github.com/GOJO-SENPA1', label: 'GitHub' },
+                    { name: 'twitter', href: 'https://x.com/AnshBohra08975', label: 'X (Twitter)' },
+                    { name: 'mail', href: 'mailto:anshbohara10@proton.me', label: 'Email' },
+                  ].map(s => (
+                    <a key={s.name} href={s.href} target={s.name === 'mail' ? undefined : '_blank'} rel="noreferrer" aria-label={s.label} style={{
+                      width: 38, height: 38, borderRadius: 10,
+                      border: '1px solid var(--color-line)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: 'var(--color-text-muted)',
+                    }}><Icon name={s.name} size={16} /></a>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
