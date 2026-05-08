@@ -30,7 +30,9 @@ export const portfolioSchema = z.object({
   category: z.string().trim().min(1).max(40),
   client_name: z.string().trim().max(120).optional(),
   tech_stack: z.array(z.string().trim().max(40)).default([]),
-  image_url: z.string().trim().url().max(500).optional().or(z.literal('').transform(() => undefined)),
+  image_url: z.string().trim().max(500).optional()
+    .or(z.literal('').transform(() => undefined))
+    .refine(v => !v || /^(https?:\/\/|\/uploads\/)/.test(v), 'image_url must be an absolute URL or /uploads/... path'),
   live_url: z.string().trim().url().max(500).optional().or(z.literal('').transform(() => undefined)),
   challenge: z.string().trim().max(4000).optional(),
   approach: z.string().trim().max(4000).optional(),
@@ -47,9 +49,17 @@ export const blogSchema = z.object({
   category: z.string().trim().max(40).optional(),
   author: z.string().trim().max(120).optional(),
   read_time: z.string().trim().max(20).optional(),
-  image_url: z.string().trim().url().max(500).optional().or(z.literal('').transform(() => undefined)),
+  image_url: z.string().trim().max(500).optional()
+    .or(z.literal('').transform(() => undefined))
+    .refine(v => !v || /^(https?:\/\/|\/uploads\/)/.test(v), 'image_url must be an absolute URL or /uploads/... path'),
   published: z.boolean().optional(),
   published_at: z.string().datetime().optional(),
+});
+
+export const adminCreateSchema = z.object({
+  email: z.string().trim().email().max(200),
+  password: z.string().min(8).max(200),
+  name: z.string().trim().max(120).optional(),
 });
 
 export const contactPatchSchema = z.object({

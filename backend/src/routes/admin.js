@@ -9,6 +9,7 @@ import {
   portfolioSchema,
   blogSchema,
   contactPatchSchema,
+  adminCreateSchema,
 } from '../lib/validators.js';
 
 export const router = Router();
@@ -36,18 +37,84 @@ router.get('/admin/me', (req, res) => res.json({ admin: req.admin }));
 // GET /api/admin/stats
 router.get('/admin/stats', async (req, res, next) => {
   try {
-    const [{ rows: [c] }, { rows: [p] }, { rows: [b] }, { rows: [n] }] = await Promise.all([
+    const [
+      { rows: [c] },
+      { rows: [p] },
+      { rows: [b] },
+      { rows: [n] },
+      { rows: [cNew] },
+      { rows: [c30] },
+      { rows: [c7] },
+    ] = await Promise.all([
       query('SELECT COUNT(*)::int AS n FROM contacts'),
       query('SELECT COUNT(*)::int AS n FROM portfolio'),
       query('SELECT COUNT(*)::int AS n FROM blog'),
       query('SELECT COUNT(*)::int AS n FROM newsletter'),
+      query("SELECT COUNT(*)::int AS n FROM contacts WHERE status = 'new'"),
+      query("SELECT COUNT(*)::int AS n FROM contacts WHERE created_at >= now() - interval '30 days'"),
+      query("SELECT COUNT(*)::int AS n FROM contacts WHERE created_at >= now() - interval '7 days'"),
     ]);
     res.json({
       contacts_count: c.n,
       portfolio_count: p.n,
       blog_count: b.n,
       newsletter_count: n.n,
+      contacts_new: cNew.n,
+      contacts_30d: c30.n,
+      contacts_7d: c7.n,
       admin_email: req.admin.email,
+    });
+  } catch (err) { next(err); }
+});
+
+// GET /api/admin/analytics — time-series + breakdowns for charts
+router.get('/admin/analytics', async (req, res, next) => {
+  try {
+    const days = Math.min(Math.max(parseInt(req.query.days, 10) || 30, 7), 90);
+    const [series, byService, byStatus, byBudget, recent] = await Promise.all([
+      query(
+        `SELECT to_char(d::date, 'YYYY-MM-DD') AS date,
+                COALESCE(c.n, 0)::int AS count
+         FROM generate_series(now()::date - ($1::int - 1) * interval '1 day', now()::date, interval '1 day') AS d
+         LEFT JOIN (
+           SELECT created_at::date AS day, COUNT(*) AS n
+           FROM contacts
+           WHERE created_at >= now()::date - ($1::int - 1) * interval '1 day'
+           GROUP BY created_at::date
+         ) c ON c.day = d::date
+         ORDER BY d`,
+        [days],
+      ),
+      query(
+        `SELECT COALESCE(service, 'Unspecified') AS label, COUNT(*)::int AS count
+         FROM contacts
+         WHERE created_at >= now() - ($1::int * interval '1 day')
+         GROUP BY label ORDER BY count DESC LIMIT 10`,
+        [days],
+      ),
+      query(
+        `SELECT status AS label, COUNT(*)::int AS count
+         FROM contacts GROUP BY status ORDER BY count DESC`,
+      ),
+      query(
+        `SELECT COALESCE(budget, 'Unspecified') AS label, COUNT(*)::int AS count
+         FROM contacts
+         WHERE created_at >= now() - ($1::int * interval '1 day')
+         GROUP BY label ORDER BY count DESC LIMIT 10`,
+        [days],
+      ),
+      query(
+        `SELECT id, name, email, service, status, created_at
+         FROM contacts ORDER BY created_at DESC LIMIT 5`,
+      ),
+    ]);
+    res.json({
+      days,
+      series: series.rows,
+      by_service: byService.rows,
+      by_status: byStatus.rows,
+      by_budget: byBudget.rows,
+      recent: recent.rows,
     });
   } catch (err) { next(err); }
 });
@@ -141,7 +208,29 @@ router.delete('/admin/portfolio/:id', async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
+router.get('/admin/portfolio', async (_req, res, next) => {
+  try {
+    const { rows } = await query(
+      `SELECT id, title, description, category, client_name, tech_stack,
+              image_url, live_url, featured, published, created_at, updated_at
+       FROM portfolio ORDER BY updated_at DESC`,
+    );
+    res.json(rows);
+  } catch (err) { next(err); }
+});
+
 // ── Blog ────────────────────────────────────────────────────
+router.get('/admin/blog', async (_req, res, next) => {
+  try {
+    const { rows } = await query(
+      `SELECT id, slug, title, excerpt, body, category, author, read_time,
+              image_url, published, published_at, created_at, updated_at
+       FROM blog ORDER BY updated_at DESC`,
+    );
+    res.json(rows);
+  } catch (err) { next(err); }
+});
+
 router.post('/admin/blog', async (req, res, next) => {
   try {
     const d = blogSchema.parse(req.body);
@@ -193,4 +282,41 @@ router.post('/admin/upload', upload.single('file'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
   const url = `/uploads/${req.file.filename}`;
   res.status(201).json({ url, filename: req.file.filename, size: req.file.size, mime: req.file.mimetype });
+});
+
+// ── Admin team (any logged-in admin can manage other admins) ─
+router.get('/admin/admins', async (_req, res, next) => {
+  try {
+    const { rows } = await query(
+      `SELECT id, email, name, created_at FROM admins ORDER BY created_at ASC`,
+    );
+    res.json(rows);
+  } catch (err) { next(err); }
+});
+
+router.post('/admin/admins', async (req, res, next) => {
+  try {
+    const d = adminCreateSchema.parse(req.body);
+    const hash = await bcrypt.hash(d.password, 12);
+    const { rows } = await query(
+      `INSERT INTO admins (email, password_hash, name) VALUES ($1, $2, $3)
+       ON CONFLICT (email) DO NOTHING
+       RETURNING id, email, name, created_at`,
+      [d.email.toLowerCase(), hash, d.name || null],
+    );
+    if (!rows[0]) return res.status(409).json({ error: 'An admin with that email already exists.' });
+    res.status(201).json(rows[0]);
+  } catch (err) { next(err); }
+});
+
+router.delete('/admin/admins/:id', async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id)) return res.status(400).json({ error: 'Invalid id' });
+    if (id === req.admin.id) return res.status(400).json({ error: 'You cannot remove yourself.' });
+    const { rows: [count] } = await query('SELECT COUNT(*)::int AS n FROM admins');
+    if (count.n <= 1) return res.status(400).json({ error: 'At least one admin must remain.' });
+    await query('DELETE FROM admins WHERE id = $1', [id]);
+    res.status(204).end();
+  } catch (err) { next(err); }
 });

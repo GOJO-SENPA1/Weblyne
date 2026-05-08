@@ -45,11 +45,35 @@ export const api = {
   adminContactUpdate: (token, id, payload) => request(`/admin/contacts/${id}`, { method: 'PATCH', token, body: payload }),
   adminContactDelete: (token, id) => request(`/admin/contacts/${id}`, { method: 'DELETE', token }),
   adminStats: (token) => request('/admin/stats', { token }),
+  adminAnalytics: (token, days = 30) => request(`/admin/analytics?days=${days}`, { token }),
+  adminBlogList: (token) => request('/admin/blog', { token }),
   adminBlogCreate: (token, payload) => request('/admin/blog', { method: 'POST', token, body: payload }),
   adminBlogUpdate: (token, id, payload) => request(`/admin/blog/${id}`, { method: 'PUT', token, body: payload }),
   adminBlogDelete: (token, id) => request(`/admin/blog/${id}`, { method: 'DELETE', token }),
+  adminPortfolioList: (token) => request('/admin/portfolio', { token }),
+  adminPortfolioCreate: (token, payload) => request('/admin/portfolio', { method: 'POST', token, body: payload }),
   adminPortfolioUpdate: (token, id, payload) => request(`/admin/portfolio/${id}`, { method: 'PUT', token, body: payload }),
   adminPortfolioDelete: (token, id) => request(`/admin/portfolio/${id}`, { method: 'DELETE', token }),
+  adminAdmins: (token) => request('/admin/admins', { token }),
+  adminAdminCreate: (token, payload) => request('/admin/admins', { method: 'POST', token, body: payload }),
+  adminAdminDelete: (token, id) => request(`/admin/admins/${id}`, { method: 'DELETE', token }),
+  adminUpload: async (token, file) => {
+    const fd = new FormData();
+    fd.append('file', file);
+    const res = await fetch(`${BASE}/admin/upload`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      body: fd,
+    });
+    const text = await res.text();
+    const data = text ? JSON.parse(text) : null;
+    if (!res.ok) {
+      const err = new Error(data?.error || `HTTP ${res.status}`);
+      err.status = res.status;
+      throw err;
+    }
+    return data;
+  },
 };
 
 const TOKEN_KEY = 'weblyne-admin-token';
