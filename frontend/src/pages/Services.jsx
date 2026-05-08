@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Icon from '../components/Icon.jsx';
 import CtaBanner from '../components/CtaBanner.jsx';
 
@@ -128,14 +129,59 @@ export default function Services() {
               { name: 'Stripe', logo: 'https://cdn.simpleicons.org/stripe/635BFF' },
               { name: 'GitHub', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
             ].map(t => (
-              <div key={t.name} style={{
-                aspectRatio: '1', border: '1px solid var(--color-line)', borderRadius: 14,
-                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8,
-                background: 'white',
-              }}>
-                <img src={t.logo} alt={t.name} width={40} height={40} style={{ display: 'block' }} />
-                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-ink)' }}>{t.name}</div>
-              </div>
+              <motion.div
+                key={t.name}
+                initial="idle"
+                whileHover="hover"
+                variants={{
+                  idle: {
+                    scale: 1,
+                    y: 0,
+                    boxShadow: '0 0 0 1px #e7ecf3',
+                    backgroundColor: '#ffffff',
+                  },
+                  hover: {
+                    scale: 1.08,
+                    y: -6,
+                    boxShadow: '0 0 0 2px #185fa5, 0 8px 25px rgba(24,95,165,0.25)',
+                    backgroundColor: 'rgba(24,95,165,0.05)',
+                  },
+                }}
+                transition={{
+                  scale: { type: 'spring', stiffness: 300, damping: 20 },
+                  y: { type: 'spring', stiffness: 300, damping: 20 },
+                  boxShadow: { duration: 0.2, ease: 'easeOut' },
+                  backgroundColor: { duration: 0.2, ease: 'easeOut' },
+                }}
+                style={{
+                  aspectRatio: '1', borderRadius: 14,
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  cursor: 'pointer',
+                }}
+              >
+                <motion.img
+                  src={t.logo}
+                  alt={t.name}
+                  width={40}
+                  height={40}
+                  variants={{
+                    idle: { filter: 'brightness(1)' },
+                    hover: { filter: 'brightness(1.15)' },
+                  }}
+                  transition={{ duration: 0.2 }}
+                  style={{ display: 'block' }}
+                />
+                <motion.div
+                  variants={{
+                    idle: { color: '#0a1626' },
+                    hover: { color: '#185fa5' },
+                  }}
+                  transition={{ duration: 0.2 }}
+                  style={{ fontSize: 13, fontWeight: 600 }}
+                >
+                  {t.name}
+                </motion.div>
+              </motion.div>
             ))}
           </div>
         </div>
